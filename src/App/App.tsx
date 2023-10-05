@@ -8,14 +8,14 @@ import { addParamToUrl } from "powerhooks/tools/urlSearchParams";
 
 //On older Keycloak version you need the /auth (e.g: http://localhost:8080/auth)
 //On newer version you must remove it (e.g: http://localhost:8080 )
-const keycloakUrl = "https://auth.code.gouv.fr/auth";
-const keycloakRealm = "keycloakify";
+const keycloakUrl = "http://localhost:8080";
+const keycloakRealm = "CASTrealm";
 const keycloakClient= "starter";
 
 const { OidcClientProvider } = createOidcClientProvider({
     url: keycloakUrl,
     realm: keycloakRealm,
-    clientId: keycloakClient,
+    clientId: "CASTclient",
     //This function will be called just before redirecting, 
     //it should return the current langue. 
     //kcContext.locale.currentLanguageTag will be what this function returned just before redirecting.  
