@@ -9,13 +9,13 @@ import { addParamToUrl } from "powerhooks/tools/urlSearchParams";
 //On older Keycloak version you need the /auth (e.g: http://localhost:8080/auth)
 //On newer version you must remove it (e.g: http://localhost:8080 )
 const keycloakUrl = "http://localhost:8080";
-const keycloakRealm = "CASTrealm";
+const keycloakRealm = "MICROSOFTrealm";//put the api response from Rahul here, it will redirect to the correct realm
 const keycloakClient= "starter";
 
 const { OidcClientProvider } = createOidcClientProvider({
     url: keycloakUrl,
     realm: keycloakRealm,
-    clientId: "CASTclient",
+    clientId: "MICROSOFTclient",//put the api response from Rahul here, it will redirect to the correct realm
     //This function will be called just before redirecting, 
     //it should return the current langue. 
     //kcContext.locale.currentLanguageTag will be what this function returned just before redirecting.  
@@ -67,7 +67,7 @@ function ContextualizedApp() {
 
     return (
         <div className="App">
-            <header className="App-header">
+            <header className="App-header" >
                 {
                     oidcClient.isUserLoggedIn ?
                         <>
@@ -82,9 +82,9 @@ function ContextualizedApp() {
                             <button onClick={() => oidcClient.login({ doesCurrentHrefRequiresAuth: false })}>Login</button>
                         </>
                 }
-                <img src={logo} className="App-logo" alt="logo" />
-                <img src={myimg} alt="test_image" />
-                <p style={{ "fontFamily": '"Work Sans"' }}>Hello world</p>
+                {/* <img src={logo} className="App-logo" alt="logo" /> */}
+                {/* <img src={myimg} alt="test_image" /> */}
+                <p style={{ "fontFamily": '"Work Sans"' }}>Hello CAST world</p>
                 <p>Check out all keycloak pages in the <a href="https://storybook.keycloakify.dev/storybook">Storybook</a>!</p>
                 <p>Once you've identified the ones you want to customize run <code>npx eject-keycloak-page</code></p>
             </header>

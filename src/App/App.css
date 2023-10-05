@@ -24,7 +24,8 @@ body {
 }
 
 .App-header {
-  background-color: #282c34;
+  background: url(../keycloak-theme/login/assets/background.png) no-repeat center center fixed;
+  background-size: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
