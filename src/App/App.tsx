@@ -1,21 +1,20 @@
 import "./App.css";
-import logo from "./logo.svg";
-import myimg from "./myimg.png";
 import { createOidcClientProvider, useOidcClient } from "./oidc";
 import { addFooToQueryParams, addBarToQueryParams } from "../keycloak-theme/login/valuesTransferredOverUrl";
 import jwt_decode from "jwt-decode";
 import { addParamToUrl } from "powerhooks/tools/urlSearchParams";
+import svg from '../keycloak-theme/login/assets/cast.svg';
 
 //On older Keycloak version you need the /auth (e.g: http://localhost:8080/auth)
 //On newer version you must remove it (e.g: http://localhost:8080 )
 const keycloakUrl = "http://localhost:8080";
-const keycloakRealm = "MICROSOFTrealm";//put the api response from Rahul here, it will redirect to the correct realm
+const keycloakRealm = "CASTrealm";//put the api response from Rahul here, it will redirect to the correct realm
 const keycloakClient= "starter";
 
 const { OidcClientProvider } = createOidcClientProvider({
     url: keycloakUrl,
     realm: keycloakRealm,
-    clientId: "MICROSOFTclient",//put the api response from Rahul here, it will redirect to the correct realm
+    clientId: "CASTclient",//put the api response from Rahul here, it will redirect to the correct realm
     //This function will be called just before redirecting, 
     //it should return the current langue. 
     //kcContext.locale.currentLanguageTag will be what this function returned just before redirecting.  
@@ -66,28 +65,29 @@ function ContextualizedApp() {
     }).newUrl;
 
     return (
-        <div className="App">
-            <header className="App-header" >
-                {
-                    oidcClient.isUserLoggedIn ?
-                        <>
-                            <h1>You are authenticated !</h1>
-                            {/* On older Keycloak version its /auth/realms instead of /realms */}
-                            <a href={accountUrl}>Link to your Keycloak account</a>
-                            <pre style={{ textAlign: "left" }}>{JSON.stringify(jwt_decode(oidcClient.getAccessToken()), null, 2)}</pre>
-                            <button onClick={() => oidcClient.logout({ redirectTo: "home" })}>Logout</button>
-                        </>
-                        :
-                        <>
-                            <button onClick={() => oidcClient.login({ doesCurrentHrefRequiresAuth: false })}>Login</button>
-                        </>
-                }
-                {/* <img src={logo} className="App-logo" alt="logo" /> */}
-                {/* <img src={myimg} alt="test_image" /> */}
-                <p style={{ "fontFamily": '"Work Sans"' }}>Hello CAST world</p>
-                <p>Check out all keycloak pages in the <a href="https://storybook.keycloakify.dev/storybook">Storybook</a>!</p>
-                <p>Once you've identified the ones you want to customize run <code>npx eject-keycloak-page</code></p>
-            </header>
+        <div className="container">
+          <header className="header">
+            {
+              oidcClient.isUserLoggedIn ?
+                <>
+                  <h1>You are authenticated!</h1>
+                  <a href={accountUrl} className="account-link">Link to your Keycloak account</a>
+                  <pre className="token-info">{JSON.stringify(jwt_decode(oidcClient.getAccessToken()), null, 2)}</pre>
+                  <button onClick={() => oidcClient.logout({ redirectTo: "home" })} className="logout-button">Logout</button>
+                </>
+                :
+                <>
+                  <button onClick={() => oidcClient.login({ doesCurrentHrefRequiresAuth: false })} className="login-button">Login</button>
+                </>
+            }
+            <p className="hello-text">Hello CAST world</p>
+          </header>
+          <div className="footer">
+            <div className="logo-container">
+              <img src={svg} alt="Logo"  />
+              <div >Copyright ©️ 2023 CAST Imaging</div>
+            </div>
+          </div>
         </div>
-    );
+      );
 }

@@ -13,5 +13,6 @@
 
 /* Setting the castMeudon background as a placeholder for now, customized realm background will be based on api response */
 .my-root-class body {
-	background:      url(./assets/CastMeudon.jpg) no-repeat center center fixed; 
+	background: url(./assets/CastMeudon.jpg) no-repeat center center fixed; 
+	background-size: 100%;
 }
